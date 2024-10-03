@@ -21,7 +21,7 @@ import static java.util.UUID.randomUUID;
 @Entity
 @Table(name = "transacoes")
 @EqualsAndHashCode(of = "id")
-public class Transacao implements Serializable {
+public class Transferencia implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
