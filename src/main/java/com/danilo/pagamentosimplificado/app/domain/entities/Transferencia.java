@@ -1,5 +1,6 @@
 package com.danilo.pagamentosimplificado.app.domain.entities;
 
+import com.danilo.pagamentosimplificado.app.domain.events.TransferenciaRealizadaEvent;
 import com.danilo.pagamentosimplificado.app.domain.exceptions.TransferenciaException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,7 +25,7 @@ import static java.util.UUID.randomUUID;
 @Entity
 @Table(name = "transacoes")
 @EqualsAndHashCode(of = "id")
-public class Transferencia implements Serializable {
+public class Transferencia extends AbstractAggregateRoot<Transferencia> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -50,6 +52,11 @@ public class Transferencia implements Serializable {
     @PrePersist
     private void gerarCodigoTransacao() {
         this.setCodigo(randomUUID().toString());
+    }
+
+    @PostPersist
+    private void NotificarRecebedor() {
+        this.registerEvent(new TransferenciaRealizadaEvent(this));
     }
 
     public void validarValorTransferido() {
