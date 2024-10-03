@@ -50,4 +50,19 @@ public abstract class Usuario implements Serializable {
         this.carteira = new Carteira();
         this.carteira.setUsuario(this);
     }
+   private boolean isIgual(Usuario usuario) {
+        return this.id != null && this.id.equals(usuario.getId());
+    }
+
+    public boolean isDiferente(Usuario usuario) {
+        return !this.isIgual(usuario);
+    }
+
+    public boolean isComum() {
+        return this instanceof Comum;
+    }
+
+    public boolean isLogista() {
+        return this instanceof Lojista;
+    }
 }
