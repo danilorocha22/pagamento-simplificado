@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 @Setter
 @Entity
 @Table(name = "usuarios")
+@ToString(of = {"id", "nomeCompleto", "email", "senha"})
 @EqualsAndHashCode(of = "id")
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = SINGLE_TABLE)
@@ -43,23 +45,20 @@ public abstract class Usuario implements Serializable {
     private String senha;
 
     @NotNull
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Carteira carteira;
 
     public Usuario() {
         this.carteira = new Carteira();
         this.carteira.setUsuario(this);
     }
-   private boolean isIgual(Usuario usuario) {
+
+    private boolean isIgual(Usuario usuario) {
         return this.id != null && this.id.equals(usuario.getId());
     }
 
     public boolean isDiferente(Usuario usuario) {
         return !this.isIgual(usuario);
-    }
-
-    public boolean isComum() {
-        return this instanceof Comum;
     }
 
     public boolean isLogista() {

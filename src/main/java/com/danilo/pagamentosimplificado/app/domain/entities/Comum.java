@@ -7,11 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
 @Setter
 @Entity
+@ToString(callSuper = true)
 @DiscriminatorValue("comum")
 @EqualsAndHashCode(callSuper = true)
 public class Comum extends Usuario {
