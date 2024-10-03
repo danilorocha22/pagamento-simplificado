@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class EmailNotificacaoImpl implements NotificacaoRecebedorService {
-    private final NotificacaoService notificacaoService;
+    private final NotificacaoExternalService notificacaoService;
 
     @Override
     public void transferenciaRealizada(Transferencia transferencia) {

@@ -17,7 +17,7 @@ import static org.springframework.http.HttpMethod.POST;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NotificacaoService {
+public class NotificacaoExternalService {
     public static final String URL_NOTIFY = "https://util.devi.tools/api/v1/notify";
     private final RestTemplate restTemplate;
 

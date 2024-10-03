@@ -2,7 +2,7 @@ package com.danilo.pagamentosimplificado.app.domain.services;
 
 import com.danilo.pagamentosimplificado.app.domain.entities.Transferencia;
 import com.danilo.pagamentosimplificado.app.domain.repositories.TransferenciaRepository;
-import com.danilo.pagamentosimplificado.app.infra.services.TransacaoAutorizadorService;
+import com.danilo.pagamentosimplificado.app.infra.services.AutorizadorExternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TransferenciaService {
     private final TransferenciaRepository transferenciaRepository;
-    private final TransacaoAutorizadorService autorizadorService;
+    private final AutorizadorExternalService autorizadorService;
 
     @Transactional
     public void realizarTransferencia(Transferencia transferencia) {
