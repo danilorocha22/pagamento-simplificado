@@ -22,4 +22,9 @@ public class UsuarioCadastroService {
                 .orElseThrow(() -> new EntidadeNaoCadastradaException("Falhou ao tentar cadastrar o usuário: %s"
                         .formatted(usuario.getNomeCompleto())));
     }
+
+    public Usuario buscarPorId(Long id) {
+        return this.usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoCadastradaException("Usuario não encontrado"));
+    }
 }
