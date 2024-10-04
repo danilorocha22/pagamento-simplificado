@@ -19,7 +19,7 @@ public class TransacoesService {
         this.autorizadorService.autorizarTransacao();
         transferencia.getPagador().debitarSaldo(transferencia.getValor());
         transferencia.getRecebedor().adicionarSaldo(transferencia.getValor());
-        this.transferenciaRepository.save(transferencia);
+        return this.transacoesRepository.saveAndFlush(transferencia);
     }
 
     private void validar(Transferencia transferencia) {
