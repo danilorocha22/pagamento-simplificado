@@ -1,5 +1,6 @@
 package com.danilo.pagamentosimplificado.app.domain.entities;
 
+import com.danilo.pagamentosimplificado.app.domain.exceptions.TransferenciaException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import lombok.ToString;
 import java.io.Serial;
 import java.io.Serializable;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 
@@ -45,7 +47,7 @@ public abstract class Usuario implements Serializable {
     private String senha;
 
     @NotNull
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", cascade = ALL)
     private Carteira carteira;
 
     public Usuario() {
@@ -61,7 +63,9 @@ public abstract class Usuario implements Serializable {
         return !this.isIgual(usuario);
     }
 
-    public boolean isLogista() {
-        return this instanceof Lojista;
+    public void impedirLogistaFazerTransferencia() {
+        if (this instanceof Lojista) {
+            throw new TransferenciaException("Apenas usuários comuns podem fazer transferências.");
+        }
     }
 }
