@@ -24,7 +24,7 @@ import static java.util.UUID.randomUUID;
 @Setter
 @Entity
 @Table(name = "transacoes")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = false)
 public class Transferencia extends AbstractAggregateRoot<Transferencia> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
