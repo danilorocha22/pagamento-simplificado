@@ -14,7 +14,7 @@ public class TransacoesService {
     private final AutorizadorExternalService autorizadorService;
 
     @Transactional
-    public void realizarTransferencia(Transferencia transferencia) {
+    public Transferencia transferir(Transferencia transferencia) {
         this.validar(transferencia);
         this.autorizadorService.autorizarTransacao();
         transferencia.getPagador().debitarSaldo(transferencia.getValor());
