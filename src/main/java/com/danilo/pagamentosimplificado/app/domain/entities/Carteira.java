@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static java.math.BigDecimal.ZERO;
 
@@ -31,7 +32,7 @@ public class Carteira implements Serializable {
     private BigDecimal saldo = ZERO;
 
     @NotNull
-    @OneToOne
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
