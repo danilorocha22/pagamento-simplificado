@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class TransferenciaService {
-    private final TransferenciaRepository transferenciaRepository;
+public class TransacoesService {
+    private final TransacoesRepository transacoesRepository;
     private final AutorizadorExternalService autorizadorService;
 
     @Transactional
