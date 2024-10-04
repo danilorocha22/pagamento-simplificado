@@ -50,6 +50,12 @@ public class Carteira implements Serializable {
         }
     }
 
+    public void validarValorTransacao(BigDecimal valor) {
+        if (valor.compareTo(ZERO) <= 0) {
+            throw new TransferenciaException("O valor da transação deve ser maior que 0");
+        }
+    }
+
     private boolean isInsuficiente(BigDecimal valor) {
         return this.saldo.compareTo(ZERO) == 0 || this.saldo.subtract(valor).compareTo(ZERO) < 0;
     }

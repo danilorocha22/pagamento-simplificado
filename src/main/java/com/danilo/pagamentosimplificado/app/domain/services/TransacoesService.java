@@ -23,7 +23,7 @@ public class TransferenciaService {
     }
 
     private void validar(Transferencia transferencia) {
-        transferencia.validarValorTransferido();
-        transferencia.impedirLogistaRealizar();
+        transferencia.getPagador().validarValorTransacao(transferencia.getValor());
+        transferencia.getRecebedor().getUsuario().impedirLogistaFazerTransferencia();
     }
 }
