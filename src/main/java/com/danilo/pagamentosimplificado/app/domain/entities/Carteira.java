@@ -37,6 +37,7 @@ public class Carteira implements Serializable {
     private Usuario usuario;
 
     public void adicionarSaldo(BigDecimal valor) {
+        this.validarValorTransacao(valor);
         this.saldo = this.saldo.add(valor);
     }
 
