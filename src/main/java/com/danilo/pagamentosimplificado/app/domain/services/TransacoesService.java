@@ -1,11 +1,15 @@
 package com.danilo.pagamentosimplificado.app.domain.services;
 
+import com.danilo.pagamentosimplificado.app.domain.entities.Carteira;
 import com.danilo.pagamentosimplificado.app.domain.entities.Transferencia;
-import com.danilo.pagamentosimplificado.app.domain.repositories.TransferenciaRepository;
+import com.danilo.pagamentosimplificado.app.domain.entities.Usuario;
+import com.danilo.pagamentosimplificado.app.domain.repositories.TransacoesRepository;
 import com.danilo.pagamentosimplificado.app.infra.services.AutorizadorExternalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
