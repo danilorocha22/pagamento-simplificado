@@ -1,20 +1,21 @@
 package com.danilo.pagamentosimplificado.app.api.dto.input;
 
-import com.danilo.pagamentosimplificado.app.domain.entities.Carteira;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@ToString
 public class TransferenciaInput {
     @NotNull
-    private Carteira pagador;
+    private Long pagador;
 
     @NotNull
-    private Carteira recebedor;
+    private Long recebedor;
 
     @NotNull
     private BigDecimal valor;

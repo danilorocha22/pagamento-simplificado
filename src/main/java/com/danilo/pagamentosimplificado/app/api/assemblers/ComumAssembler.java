@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UsuarioComumAssembler {
+public class ComumAssembler {
     private final ModelMapper mapper;
 
     public Comum toDomain(ComumInput input) {

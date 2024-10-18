@@ -11,9 +11,12 @@ import java.math.BigDecimal;
 public class TransferenciaOutput {
     @JsonProperty("código da transação")
     private String codigo;
+
     @JsonProperty("pagador")
     private String pagadorUsuarioNomeCompleto;
+
     @JsonProperty("recebedor")
     private String recebedorUsuarioNomeCompleto;
+
     private BigDecimal valor;
 }

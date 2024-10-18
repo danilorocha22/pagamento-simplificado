@@ -1,6 +1,6 @@
 package com.danilo.pagamentosimplificado.app.domain.entities;
 
-import com.danilo.pagamentosimplificado.app.domain.exceptions.TransferenciaException;
+import com.danilo.pagamentosimplificado.app.domain.exceptions.TransacaoException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
@@ -31,30 +31,31 @@ public class Carteira implements Serializable {
     @NotNull
     private BigDecimal saldo = ZERO;
 
+    @MapsId
     @NotNull
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public void adicionarSaldo(BigDecimal valor) {
+    public void creditar(BigDecimal valor) {
         this.validarValorTransacao(valor);
         this.saldo = this.saldo.add(valor);
     }
 
-    public void debitarSaldo(BigDecimal valor) {
+    public void debitar(BigDecimal valor) {
         this.validarSaldo(valor);
         this.saldo = this.saldo.subtract(valor);
     }
 
-    public void validarSaldo(BigDecimal valor) {
-        if (isInsuficiente(valor)) {
-            throw new TransferenciaException("Saldo insuficiente");
+    public void validarValorTransacao(BigDecimal valor) {
+        if (valor.compareTo(ZERO) <= 0) {
+            throw new TransacaoException("O valor da transação deve ser maior que 0.0");
         }
     }
 
-    public void validarValorTransacao(BigDecimal valor) {
-        if (valor.compareTo(ZERO) <= 0) {
-            throw new TransferenciaException("O valor da transação deve ser maior que 0");
+    public void validarSaldo(BigDecimal valor) {
+        if (isInsuficiente(valor)) {
+            throw new TransacaoException("Saldo insuficiente");
         }
     }
 

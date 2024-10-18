@@ -1,10 +1,11 @@
 package com.danilo.pagamentosimplificado.app.api.dto.output;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ComumOutput extends UsuarioOutput {
-     private String cpf;
+public class CarteiraSaldoOutput {
+    private String saldo;
 }

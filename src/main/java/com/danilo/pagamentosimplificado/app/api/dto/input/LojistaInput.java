@@ -4,22 +4,22 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 @Getter
 @Setter
-public class ComumInput {
+public class LojistaInput {
     @NotBlank
     private String nomeCompleto;
 
+    @Email
     @NotBlank
-    @Email(message = "Email inválido")
     private String email;
 
     @NotBlank
     private String senha;
 
+    @CNPJ
     @NotBlank
-    @CPF(message = "CPF inválido")
-    private String cpf;
+    private String cnpj;
 }

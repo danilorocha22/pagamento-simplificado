@@ -1,12 +1,14 @@
 package com.danilo.pagamentosimplificado.app.domain.entities;
 
 import com.danilo.pagamentosimplificado.app.domain.events.TransferenciaRealizadaEvent;
+import com.danilo.pagamentosimplificado.app.domain.exceptions.TransacaoException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.io.Serial;
@@ -21,6 +23,7 @@ import static java.util.UUID.randomUUID;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "transacoes")
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Transferencia extends AbstractAggregateRoot<Transferencia> implements Serializable {
@@ -55,5 +58,17 @@ public class Transferencia extends AbstractAggregateRoot<Transferencia> implemen
     @PostPersist
     private void NotificarRecebedor() {
         this.registerEvent(new TransferenciaRealizadaEvent(this));
+    }
+
+    public void impedirLogistaTransferir() {
+        if (this.getPagador().getUsuario().isLogista()) {
+            throw new TransacaoException("Logista não pode realizar transferências.");
+        }
+    }
+
+    public void impedirPagadorIgualRecebedor() {
+        if (this.getPagador().getUsuario().isIgual(this.getRecebedor().getUsuario())) {
+            throw new TransacaoException("O pagador deve ser diferente do recebedor.");
+        }
     }
 }

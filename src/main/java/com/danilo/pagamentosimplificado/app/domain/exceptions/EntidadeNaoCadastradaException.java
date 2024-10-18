@@ -1,6 +1,8 @@
 package com.danilo.pagamentosimplificado.app.domain.exceptions;
 
-public class EntidadeNaoCadastradaException extends RuntimeException {
+import jakarta.persistence.PersistenceException;
+
+public class EntidadeNaoCadastradaException extends PersistenceException {
 
     public EntidadeNaoCadastradaException() {
         super();

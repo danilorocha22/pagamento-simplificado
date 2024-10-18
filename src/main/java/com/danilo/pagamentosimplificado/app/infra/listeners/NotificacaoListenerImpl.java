@@ -1,21 +1,21 @@
 package com.danilo.pagamentosimplificado.app.infra.listeners;
 
 import com.danilo.pagamentosimplificado.app.domain.events.TransferenciaRealizadaEvent;
-import com.danilo.pagamentosimplificado.app.domain.listener.NotificacaoRecebedorListener;
-import com.danilo.pagamentosimplificado.app.domain.services.NotificacaoRecebedorService;
+import com.danilo.pagamentosimplificado.app.domain.listener.NotificacaoListener;
+import com.danilo.pagamentosimplificado.app.domain.services.NotificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
-public class NotificacaoRecebedorListenerImpl implements NotificacaoRecebedorListener {
+public class NotificacaoListenerImpl implements NotificacaoListener {
 
     @Autowired
-    private NotificacaoRecebedorService notificacaoRecebedorService;
+    private NotificacaoService notificacaoService;
 
     @Override
     @TransactionalEventListener
     public void aoRealizarTransferencia(TransferenciaRealizadaEvent event) {
-        this.notificacaoRecebedorService.transferenciaRealizada(event.transferencia());
+        this.notificacaoService.transferenciaRealizada(event.transferencia());
     }
 }

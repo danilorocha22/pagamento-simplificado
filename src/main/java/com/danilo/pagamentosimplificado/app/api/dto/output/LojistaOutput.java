@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ComumOutput extends UsuarioOutput {
-     private String cpf;
+public class LojistaOutput extends UsuarioOutput {
+    private String cnpj;
 }

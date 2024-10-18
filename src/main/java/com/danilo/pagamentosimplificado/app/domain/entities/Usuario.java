@@ -1,6 +1,5 @@
 package com.danilo.pagamentosimplificado.app.domain.entities;
 
-import com.danilo.pagamentosimplificado.app.domain.exceptions.TransferenciaException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,10 +21,10 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 @Setter
 @Entity
 @Table(name = "usuarios")
-@ToString(of = {"id", "nomeCompleto", "email", "senha"})
 @EqualsAndHashCode(of = "id")
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = SINGLE_TABLE)
+@ToString(of = {"id", "nomeCompleto", "email"})
 public abstract class Usuario implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -55,7 +54,7 @@ public abstract class Usuario implements Serializable {
         this.carteira.setUsuario(this);
     }
 
-    private boolean isIgual(Usuario usuario) {
+    public boolean isIgual(Usuario usuario) {
         return this.id != null && this.id.equals(usuario.getId());
     }
 
@@ -63,9 +62,11 @@ public abstract class Usuario implements Serializable {
         return !this.isIgual(usuario);
     }
 
-    public void impedirLogistaFazerTransferencia() {
-        if (this instanceof Lojista) {
-            throw new TransferenciaException("Apenas usuários comuns podem fazer transferências.");
-        }
+    public boolean isLogista() {
+        return this instanceof Lojista;
+    }
+
+    public boolean isComum() {
+        return this instanceof Comum;
     }
 }
